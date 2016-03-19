@@ -12,6 +12,7 @@ class Main{
 			String input1 = sc.next();
 			String input2 = sc.next();
 			List<Integer> converted1 = findAllConvert(input1);
+			System.out.println(converted1.toString());
 			int base1 = -1, base2 = -1;
 			for(int i = 2; i < 37; i++){
 				if(convert(i, input2) != null && converted1.contains(convert(i, input2))){
@@ -22,7 +23,7 @@ class Main{
 			}
 
 			if(base1 < 0){
-				System.out.println(input1 + "is not equal to " + input2 + " in any base 2..36");
+				System.out.println(input1 + " is not equal to " + input2 + " in any base 2..36");
 			}else{
 				System.out.println(input1 + " (base " + base1 + ") = " + input2+ " (base " + base2 + ")");
 			}
@@ -40,10 +41,6 @@ class Main{
 	}
 
 	public static List<Integer> findAllConvert(String input){
-		if(input.charAt(0) > 64 && input.charAt(0) < 91){
-			input = numberList.get(input);
-		}
-
 		List<Integer> list = new ArrayList<Integer>();
 
 		for(int i = 2; i < 37; i++){
@@ -60,12 +57,12 @@ class Main{
 
 		int sum = 0;
 		int decimal = 1;
-		for(int i = 0; i < input.length(); i++){
-			if(Integer.parseInt(input.substring(i, i + 1)) >= base){
+		for(int i = input.length(); i > 0; i--){
+			if(Integer.parseInt(input.substring(i - 1, i)) >= base){
 				return null;
 			}
 
-			sum = Integer.parseInt(input.substring(i, i + 1)) * decimal;
+			sum += Integer.parseInt(input.substring(i - 1, i)) * decimal;
 			decimal = decimal * base;
 		}
 
